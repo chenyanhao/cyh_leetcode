@@ -33,6 +33,14 @@ class Solution {
         return res.size() > 0;
     }
 
+    /**
+     * 非标准回溯模板，第一次进入该函数时，(i,j)未加入路径
+     * @param i
+     * @param j
+     * @param start
+     * @param path
+     * @param res
+     */
     private void dfs(int i, int j, int start, LinkedList<int[]> path, List<LinkedList<int[]>> res) {
         if (start == ws.length - 1) {
             if (board[i][j] == ws[start]) {

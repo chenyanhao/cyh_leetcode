@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-class Solution2 {
+class Solution3 {
 
     private boolean[][] used;
     private int row, col;
@@ -24,54 +24,56 @@ class Solution2 {
         this.board = board;
         this.ws = word.toCharArray();
 
-        List<LinkedList<int[]>> res = new ArrayList<>();
-        LinkedList<int[]> path = new LinkedList<>();
         for (int i = 0; i < row; ++i) {
             for (int j = 0; j < col; ++j) {
                 if (board[i][j] == ws[0]) {
-                    path.addLast(new int[] {i, j});
                     used[i][j] = true;
-                    dfs(i, j, 1, path, res);
-                    path.removeLast();
-                    used[i][j] = false;
+                    if (dfs(i, j, 1)) {
+                        return true;
+                    } else {
+                        used[i][j] = false;
+                    }
                 }
             }
         }
-        return res.size() > 0;
+        return false;
     }
 
     /**
-     * 套用标准回溯模板，第一次进入该函数时，(i,j)已加入路径；接下来站在 (i,j) 上，将其邻居作为选择列表
+     * 套用标准回溯模板
      * @param i
      * @param j
      * @param depth
-     * @param path
-     * @param res
      */
-    private void dfs(int i, int j, int depth, LinkedList<int[]> path, List<LinkedList<int[]>> res) {
+    private boolean dfs(int i, int j, int depth) {
         if (depth == ws.length) {
-            res.add(new LinkedList<>(path));
-            return;
+            return true;
         }
 
-        for (int k = 0; k < direction.length; ++k) {
-            int newX = i + direction[k][0];
-            int newY = j + direction[k][1];
+        for (int[] d : direction) {
+            int newX = i + d[0];
+            int newY = j + d[1];
+            // 剪枝
             if (! inArea(newX, newY)) {
                 continue;
             }
+            // 剪枝
             if (used[newX][newY]) {
                 continue;
             }
+            // 剪枝
             if (board[newX][newY] != ws[depth]) {
                 continue;
             }
-            path.addLast(new int[] {newX, newY});
+
             used[newX][newY] = true;
-            dfs(newX, newY, depth + 1, path, res);
-            used[newX][newY] = false;
-            path.removeLast();
+            if (dfs(newX, newY, depth + 1)) {
+                return true;
+            } else {
+                used[newX][newY] = false;
+            }
         }
+        return false;
     }
 
     private boolean inArea(int x, int y) {
@@ -94,7 +96,7 @@ class Solution2 {
                 {'A','D','E','E'}
         };
         String word = "ABCCED";
-        boolean exist = new Solution2().exist(board, word);
+        boolean exist = new Solution3().exist(board, word);
         System.out.println(exist);
     }
 }
