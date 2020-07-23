@@ -32,4 +32,24 @@ class Solution {
         }
         return pre;
     }
+
+    /**
+     * 递归反转链表，左闭右开，即 [head, tail)
+     *
+     * @param head
+     * @param tail
+     * @return
+     */
+    private ListNode reverse2(ListNode head, ListNode tail) {
+        if (head == tail || head.next == tail) {
+            return head;
+        }
+
+        ListNode next = head.next;
+        ListNode newHead = reverse(next, tail);
+        next.next = head;
+        head.next = null; // 这一步不可少
+
+        return newHead;
+    }
 }
