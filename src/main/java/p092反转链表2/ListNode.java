@@ -1,4 +1,4 @@
-package p086分隔链表;
+package p092反转链表2;
 
 public class ListNode {
     int val;
