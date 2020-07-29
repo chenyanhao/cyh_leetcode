@@ -1,4 +1,4 @@
-package p094二叉树的中序遍历;
+package p095不同的二叉搜索树2;
 
 public class TreeNode {
     int val;
