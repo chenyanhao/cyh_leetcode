@@ -14,7 +14,11 @@ class Solution {
             return false;
         }
 
-        return p.val == q.val && check(p.left, q.right) && check(p.right, q.left);
+        if (p.val != q.val) {
+            return false;
+        }
+
+        return check(p.left, q.right) && check(p.right, q.left);
 
     }
 }
