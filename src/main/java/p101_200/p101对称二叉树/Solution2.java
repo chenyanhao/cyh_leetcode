@@ -16,12 +16,20 @@ class Solution2 {
      * 特别注意：通过和解法一对比，掌握递归改写为循环的技巧和套路
      * 特别注意：通过和解法一对比，掌握递归改写为循环的技巧和套路
      *
+     * 技巧：
+     * 1）将递归的函数入参放在一个队列中保存起来。
+     * 2）主体逻辑和 bfs 模板很相似。
+     * 3）循环体中需要重现递归的逻辑。
+     * 4）递归调用，用入队列来模拟。如果多次递归，那么就多次入队列。
+     *
      */
     private boolean check(TreeNode p, TreeNode q) {
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(p);
         queue.offer(q);
         while (! queue.isEmpty()) {
+
+            // 下面这几段和递归中的逻辑是一致的
             TreeNode u = queue.poll();
             TreeNode v = queue.poll();
             if (u == null && v == null) {
