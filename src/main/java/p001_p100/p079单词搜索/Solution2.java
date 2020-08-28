@@ -42,11 +42,6 @@ class Solution2 {
 
     /**
      * 套用标准回溯模板，第一次进入该函数时，(i,j)已加入路径；接下来站在 (i,j) 上，将其邻居作为选择列表
-     * @param i
-     * @param j
-     * @param depth
-     * @param path
-     * @param res
      */
     private void dfs(int i, int j, int depth, LinkedList<int[]> path, List<LinkedList<int[]>> res) {
         if (depth == ws.length) {
