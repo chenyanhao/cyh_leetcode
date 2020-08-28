@@ -21,7 +21,7 @@ class Solution {
             return;
         }
         inorder.add(root);
-        flatten(root, inorder);
-        flatten(root, inorder);
+        flatten(root.left, inorder);
+        flatten(root.right, inorder);
     }
 }
