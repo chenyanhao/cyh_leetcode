@@ -18,7 +18,7 @@ public class 双路快排 {
         quickSort(arr, p + 1, r);
     }
 
-    // arr[l] = pivot; arr[l+1..i-1] < pivot; arr[j+1..r] > pivot
+    // arr[l] = pivot; arr[l+1..i-1] < pivot; arr[j+1..r] > pivot;
     public int partition(int[] arr, int l, int r) {
         int pivot = arr[l];
         int i = l + 1, j = r;
@@ -56,7 +56,7 @@ public class 双路快排 {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = new Random().nextInt(100);
         }
-        new 一路快排().quickSort(arr);
+        new 双路快排().quickSort(arr);
 
         for (int i = 0; i < arr.length; ++i) {
             System.out.println(arr[i]);
