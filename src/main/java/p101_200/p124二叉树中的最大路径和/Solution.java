@@ -2,30 +2,42 @@ package p101_200.p124二叉树中的最大路径和;
 
 class Solution {
 
-    private int max = Integer.MIN_VALUE;
+    private int maxValue = Integer.MIN_VALUE;
 
     public int maxPathSum(TreeNode root) {
+        maxPathSumHelper(root);
+        return maxValue;
+    }
+
+    // 返回经过 root 的分支最大和
+    public int maxPathSumHelper(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        dfs(root);
-        return max;
+
+        //左子节点的值
+        int left = maxPathSumHelper(root.left);
+        //右子节点的值
+        int right = maxPathSumHelper(root.right);
+
+        /**
+         * 分四种情况：
+         *  1）选一个：在 root/left/right 中三选一，仅选择一个节点
+         *  2）选二个：root + root.left
+         *  3) 选三个：root + root.right
+         *  4) 选四个：root + root.left + root.right
+         */
+        //第1,2,3三种情况,返回当前值加上左右子节点的最大值
+        int res = root.val + Math.max(0, Math.max(left, right));
+
+        //第4种情况
+        int cur = root.val + Math.max(0, left) + Math.max(0, right);
+
+        //记录最大value值
+        maxValue = Math.max(maxValue, Math.max(cur, res));
+
+        //第1,2,3种情况属于递归子问题，所以返回的是res
+        return res;
     }
 
-    // 返回经过 root 的单边分支最大和
-    private int dfs(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
-        //因为当前求得是最大path值，所以假如左path sum小于0，当前点就从自己开始，不连左子边
-        int leftMax = Math.max(0,dfs(root.left));
-        //计算右边分支最大值，右边分支如果为负数还不如不选择
-        int rightMax = Math.max(0,dfs(root.right));
-
-        //对与当前点，path有4可能:just自己, 自己+左子path，自己+右子path，自己+左+右     //left->root->right 作为路径与历史最大值做比较
-        max = Math.max(max, root.val + leftMax + rightMax);
-
-        //对于上一层node，要的是一条单边而不是倒V型的path，使用当前层的左右最多取一条      // 返回经过root的单边最大分支给上游
-        return Math.max(leftMax, rightMax) + root.val;
-    }
 }
