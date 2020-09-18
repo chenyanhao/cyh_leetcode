@@ -1,34 +1,38 @@
 package p101_200.p120三角形最小路径和;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-class Solution {
+class Solution3 {
 
-    private int ans = Integer.MAX_VALUE;
+    private Map<String, Integer> memo = new HashMap<>();
 
-    /**
-     * 使用 dfs 处理，这种做法会超时
-     */
     public int minimumTotal(List<List<Integer>> triangle) {
-        dfs(triangle, 0, 0, 0);
-        return ans;
+        return dfs(triangle, 0, 0);
     }
 
     /**
-     * 递归函数定义为：自顶向下遍历，从第 i 行、第 j 列开始，路径和为 sum（sum 已包含位置 i/j）
+     * 解法二会超时，这里进行备忘录优化。
+     *
+     * 递归函数定义为：自顶向下遍历，从第 i 行、第 j 列开始，返回最小路径和（该路径和不包含 i/j 位置的值）
      */
-    private void dfs(List<List<Integer>> triangle, int i, int j, Integer sum) {
+    private int dfs(List<List<Integer>> triangle, int i, int j) {
         if (i == triangle.size()) {
-            ans = Math.min(ans, sum);
-            return;
+            return 0;
         }
 
-        List<Integer> selections = triangle.get(i);
-        dfs(triangle, i + 1, j, sum + selections.get(j));
-        if (j + 1 <= selections.size() - 1) {
-            dfs(triangle, i + 1, j + 1, sum + selections.get(j + 1));
+        String key = i + "#" + j;
+        if (memo.containsKey(key)) {
+            return memo.get(key);
         }
+
+        int left = dfs(triangle, i + 1, j);
+        int right = dfs(triangle, i + 1, j + 1);
+        int res = Math.min(left, right) + triangle.get(i).get(j);
+        memo.put(key, res);
+        return res;
     }
 
     public static void main(String[] args) {
@@ -39,7 +43,7 @@ class Solution {
                 {4,1,8,3}
         };
         List<List<Integer>> triangle = arr2List(board);
-        int res = new Solution().minimumTotal(triangle);
+        int res = new Solution3().minimumTotal(triangle);
         System.out.println(res);
     }
 
