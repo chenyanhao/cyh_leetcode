@@ -1,19 +1,22 @@
 package p101_200.p188买卖股票的最佳时机4;
 
-class Solution {
+class Solution2 {
 
 
     /**
-     * dp[i][k][0 or 1]：第 i 天、第 k 次交易、不持仓 or 持仓
      *
-     * dp[i][k][0] = max(rest, sell)
-     *             = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
-     * dp[i][k][1] = max(rest, buy)
-     *             = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+     * 解法一提交后会提示内存超出限制，原来是传入的 k 值会非常大，dp 数组太大了。这里会优化内存占用。
      *
-     * 这种解法最通用，没经过任何优化。
-     * 提交后会提示内存超出限制，原来是传入的 k 值会非常大，dp 数组太大了。
-     * 接下来将在解法二中优化。
+     * 一次交易由买入和卖出构成，至少需要两天，所以说有效的限制 k 应该不超过 n/2。
+     * 如果超过，就没有约束作用了，相当于 k = +inf。也就是说，可以认为 k 和 k - 1 是一样的。
+     *
+     * 原 dp 方程为，
+     * dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+     * dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+     *
+     * 前面已推出来 k 和 k - 1 是一样的，所以也就是说不需要记录 k 这个状态了，所以 dp 方程退化成二维，如下，
+     * dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+     * dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
      *
      */
     public int maxProfit(int k, int[] prices) {
@@ -21,6 +24,12 @@ class Solution {
         if (n == 0) {
             return 0;
         }
+
+        // 空间优化
+        if (k > n / 2) {
+            return maxProfitKInf(prices);
+        }
+
         int[][][] dp = new int[n][k+1][2];
 
         /**
@@ -53,11 +62,27 @@ class Solution {
         return dp[n - 1][k][0];
     }
 
+    /**
+     * dp[i][0] = max(dp[i-1][0], dp[i-1][1] + prices[i])
+     * dp[i][1] = max(dp[i-1][1], dp[i-1][0] - prices[i])
+     */
+    private int maxProfitKInf(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; ++i) {
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1] + prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1], dp[i-1][0] - prices[i]);
+        }
+        return dp[n-1][0];
+    }
+
     public static void main(String[] args) {
         int[] prices = new int[] {
-                3,2,6,5,0,3
+                2,4,1
         };
-        int res = new Solution().maxProfit(2, prices);
+        int res = new Solution2().maxProfit(2, prices);
         System.out.println(res);
     }
 }
