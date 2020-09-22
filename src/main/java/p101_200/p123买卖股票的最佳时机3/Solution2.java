@@ -30,6 +30,22 @@ class Solution2 {
         return dp_i20;
     }
 
+    /**
+     * 注意和上面方法对比细节：
+     * 这里 dp_i11/dp_i21 初始化的数值和解法一相同，同时下面的 for 循环从 1 开始
+     */
+    public int maxProfit2(int[] prices) {
+        int dp_i10 = 0, dp_i11 = -prices[0]; // 注意对比这里细节
+        int dp_i20 = 0, dp_i21 = -prices[0]; // 注意对比这里细节
+        for (int i = 1; i < prices.length; ++i) { // 注意对比这里细节
+            dp_i20 = Math.max(dp_i20, dp_i21 + prices[i]);
+            dp_i21 = Math.max(dp_i21, dp_i10 - prices[i]);
+            dp_i10 = Math.max(dp_i10, dp_i11 + prices[i]);
+            dp_i11 = Math.max(dp_i11, -prices[i]);
+        }
+        return dp_i20;
+    }
+
     public static void main(String[] args) {
         int[] prices = new int[] {
                 3,3,5,0,0,3,1,4
