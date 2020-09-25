@@ -2,10 +2,10 @@ package p101_200.p127单词接龙;
 
 import java.util.*;
 
-class Solution2 {
+class Solution3 {
 
     /**
-     * 双向 dfs 初版，该版本还可以继续优化，每次遍历一层时，从节点更少的一端遍历。
+     * 优化解法二的双向 dfs，每次遍历一层时，从节点更少的一端遍历。
      */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         if (!wordList.contains(endWord)) {
@@ -28,10 +28,22 @@ class Solution2 {
         q2.offer(end);
         visited2.add(end);
 
-        int count1 = 0;
-        int count2 = 0;
+        int count = 0;
         while (! q1.isEmpty() && ! q2.isEmpty()) {
-            ++count1;
+            ++count;
+            if (q1.size() > q2.size()) {
+                // 交换 q1 和 q2，使得 q1 始终是 size 更小的一方
+                Queue<Integer> tmp1 = q1;
+                q1 = q2;
+                q2 = tmp1;
+
+                // 交换 visited1 和 visited2
+                Set<Integer> tmp2 = visited1;
+                visited1 = visited2;
+                visited2 = tmp2;
+            }
+
+            // 至此就可以保证 q1 size 是更小的一方，即接下来的遍历始终从更小 size 的队列出发
             int size1 = q1.size();
             while (size1 > 0) {
                 String s = wordList.get(q1.poll());
@@ -43,32 +55,12 @@ class Solution2 {
                         continue;
                     }
                     if (visited2.contains(i)) {
-                        return count1 + count2 + 1;
+                        return count + 1;
                     }
                     visited1.add(i);
                     q1.offer(i);
                 }
                 --size1;
-            }
-
-            ++count2;
-            int size2 = q2.size();
-            while (size2 > 0) {
-                String s = wordList.get(q2.poll());
-                for (int i = 0; i < wordList.size(); ++i) {
-                    if (visited2.contains(i)) {
-                        continue;
-                    }
-                    if (! canConvert(s, wordList.get(i))) {
-                        continue;
-                    }
-                    if (visited1.contains(i)) {
-                        return count1 + count2 + 1;
-                    }
-                    visited2.add(i);
-                    q2.offer(i);
-                }
-                --size2;
             }
         }
         return 0;
