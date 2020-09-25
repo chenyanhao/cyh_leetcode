@@ -5,7 +5,7 @@ import java.util.*;
 class Solution3 {
 
     /**
-     * 优化解法二的双向 dfs，每次遍历一层时，从节点更少的一端遍历。
+     * 优化上一版双向 dfs，每次遍历一层时，从节点更少的一端遍历。
      */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         if (!wordList.contains(endWord)) {
@@ -75,4 +75,5 @@ class Solution3 {
         }
         return count == 1;
     }
+
 }
