@@ -1,7 +1,5 @@
 package p101_200.p127单词接龙;
 
-import javafx.util.Pair;
-
 import java.util.*;
 
 class Solution {
@@ -36,12 +34,12 @@ class Solution {
         // Pair 中，第一个表示具体的 word，第二个表示遍历时该单词图中的 depth
         Queue<Pair<String, Integer>> q = new LinkedList<>();
         Map<String, Boolean> visited = new HashMap<>();
-        q.add(new Pair<>(beginWord, 1));
+        q.add(new Pair(beginWord, 1));
         visited.put(beginWord, true);
         while (! q.isEmpty()) {
             Pair<String, Integer> node = q.remove();
-            String word = node.getKey();
-            int level = node.getValue();
+            String word = node.first;
+            int level = node.second;
             for (int i = 0; i < len; ++i) {
                 String commonKey = word.substring(0, i) + "*" + word.substring(i + 1, len);
                 List<String> adjacentList = dict.getOrDefault(commonKey, new ArrayList<>());
@@ -50,7 +48,7 @@ class Solution {
                         return level + 1;
                     }
                     if (! visited.containsKey(adj)) {
-                        q.add(new Pair<>(adj, level + 1));
+                        q.add(new Pair(adj, level + 1));
                         visited.put(adj, true);
                     }
                 }
