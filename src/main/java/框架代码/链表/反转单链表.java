@@ -1,4 +1,4 @@
-package 框架代码.反转链表;
+package 框架代码.链表;
 
 public class 反转单链表 {
 
