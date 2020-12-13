@@ -2,6 +2,10 @@ package p101_200.p172阶乘后的零;
 
 class Solution {
     public int trailingZeroes(int n) {
-        return -1;
+        int res = 0;
+        for (int d = n; d / 5 > 0; d = d / 5) {
+            res += d / 5;
+        }
+        return res;
     }
 }
