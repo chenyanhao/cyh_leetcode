@@ -1,6 +1,5 @@
 package p101_200.p173二叉搜索树迭代器;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
