@@ -3,9 +3,12 @@ package 框架代码.快速排序;
 import java.util.Random;
 
 /**
- * 一路、双路、三路快排，都是 partition 方法不同，其余的代码框架全都相同
+ * 相比于基础版的快速排序，随机化的改动在于 partition(int[] arr, int l, int r) 方法；
+ * 基础版在选择 pivot 的时候，永远选择第1个元素，在近乎有序的数组中，会退化成 O(n^2) 的复杂度；
+ * 随机版在选择 pivot 的时候，从 arr 中任选一个来，换到第一个位置去，算法其余部分不变
+ *
  */
-public class 一路快排 {
+public class 一路快排加随机选择pivot {
 
     public void quickSort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
@@ -30,6 +33,10 @@ public class 一路快排 {
      * 循环结束，把 l 和 j 换一下，pivot 到了它该到的位置
      */
     public int partition(int[] arr, int l, int r) {
+
+        // 随机在arr[l...r]的范围中, 选择一个数值作为标定点pivot
+        swap(arr, l, (int)(Math.random() * (r - l + 1)) + l);
+
         int pivot = arr[l];
         int j = l;
 
@@ -56,7 +63,7 @@ public class 一路快排 {
         for (int i = 0; i < arr.length; ++i) {
             arr[i] = new Random().nextInt(100);
         }
-        new 一路快排().quickSort(arr);
+        new 一路快排加随机选择pivot().quickSort(arr);
 
         for (int i = 0; i < arr.length; ++i) {
             System.out.println(arr[i]);
