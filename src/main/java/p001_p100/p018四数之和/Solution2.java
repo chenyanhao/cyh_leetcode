@@ -5,50 +5,58 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 之前一题（p015三数之和）写过一个通用的threeSum方法，这里可以直接借鉴过来用。
+ * nSum 问题的通用解法
  */
-class Solution {
+class Solution2 {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         Arrays.sort(nums);
+        return nSum(nums, 4, 0, target);
+    }
+
+    private List<List<Integer>> nSum(int[] nums, int n, int start, int target) {
         List<List<Integer>> ans = new ArrayList<>();
-        for (int i = 0; i < nums.length; ++i) {
-            List<int[]> threeSum = threeSum(nums, i + 1, target - nums[i]);
-            for (int[] r : threeSum) {
-                ans.add(Arrays.asList(nums[i], r[0], r[1], r[2]));
-            }
 
-            // 跳过重复元素
-            while (i <= nums.length-2 && nums[i] == nums[i+1]) {
-                ++i;
-            }
+        /**
+         * 不符合预期的边界情况
+         * 1) 至少是 2Sum
+         * 2) 数组大小不小于 n
+         */
+        if (n < 2 || n > nums.length) {
+            return ans;
         }
-        return ans;
-    }
 
-    private List<int[]> threeSum(int[] nums, int start, int target) {
-        List<int[]> ans = new ArrayList<>();
+        // 递归结束条件：问题规模降到 2 时，即 n == 2 时
+        if (n == 2) {
+            return twoSum(nums, start, target);
+        }
+
+        // n >= 3 时，递归计算
         for (int i = start; i < nums.length; ++i) {
-            List<int[]> twoSum = twoSum(nums, i+1, target-nums[i]);
-            for (int[] r : twoSum) {
-                ans.add(new int[]{nums[i], r[0], r[1]});
+            List<List<Integer>> littleSum = nSum(nums, n-1, i+1, target-nums[i]);
+            for (List<Integer> r : littleSum) {
+                // Java 语言不支持集合在迭代时修改元素，所以这里需要这么写
+                List<Integer> tmp = new ArrayList<>(r);
+                tmp.add(nums[i]);
+                ans.add(tmp);
             }
 
             // 跳过重复元素
-            while (i <= nums.length-2 && nums[i] == nums[i+1]) {
+            while (i+1 <= nums.length-1 && nums[i] == nums[i+1]) {
                 ++i;
             }
         }
+
         return ans;
     }
 
-    private List<int[]> twoSum(int[] nums, int start, int target) {
-        List<int[]> ans = new ArrayList<>();
+    private List<List<Integer>> twoSum(int[] nums, int start, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
         int left = start, right = nums.length - 1;
         while (left < right) {
             int leftElem = nums[left], rightElem = nums[right];
             int sum = leftElem + rightElem;
             if (sum == target) {
-                ans.add(new int[]{nums[left], nums[right]});
+                ans.add(Arrays.asList(nums[left], nums[right]));
 
                 // 跳过重复元素
                 while (left < right && nums[left] == leftElem) {
@@ -73,7 +81,7 @@ class Solution {
     public static void main(String[] args) {
         int[] nums = {-1,0,1,2,-1,-4};
         int target = -1;
-        List<List<Integer>> result = new Solution().fourSum(nums, target);
+        List<List<Integer>> result = new Solution2().fourSum(nums, target);
         System.out.println(result);
     }
 

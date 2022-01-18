@@ -26,13 +26,13 @@ class Solution {
                 return mid;
             }
             if (nums[left] <= nums[mid]) { // 注意，应该再这里带等号，下面的 else-if 中不可以带
-                if (target >= nums[left] && target < nums[mid]) { // 左侧区间 [left,mid] 连续递增，target 处于连续递增区间，退化成普通二分查找
+                if (target >= nums[left] && target < nums[mid]) { // 区间 [left,mid] 连续递增，target 处于连续递增区间，退化成普通二分查找
                     right = mid - 1;
                 } else { // 其余情况，处于非连续区间中
                     left = mid + 1;
                 }
             } else if (nums[left] > nums[mid]) { // 注意，这里不能带等号
-                if (target > nums[mid] && target <= nums[right]) { // 左侧区间 [mid,right] 连续递增
+                if (target > nums[mid] && target <= nums[right]) { // 区间 [mid,right] 连续递增
                     left = mid + 1;
                 } else {
                     right = mid - 1;
