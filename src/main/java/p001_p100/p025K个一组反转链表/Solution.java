@@ -46,7 +46,7 @@ class Solution {
         }
 
         ListNode next = head.next;
-        ListNode newHead = reverse(next, tail);
+        ListNode newHead = reverse2(next, tail);
         next.next = head;
         head.next = null; // 这一步不可少
 

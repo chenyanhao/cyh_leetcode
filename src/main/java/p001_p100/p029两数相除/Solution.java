@@ -19,7 +19,7 @@ class Solution {
 
         boolean positive = (dividend > 0 && divisor > 0) || (dividend < 0 && divisor < 0);
 
-        // 都改为负号是因为 int 的范围是[2^32, 2^32-1]，如果dividend是-2^32，转为正数时将会溢出
+        // 最关键的一点边界条件：都改为负号是因为 int 的范围是[2^32, 2^32-1]，如果dividend是-2^32，转为正数时将会溢出
         dividend = dividend > 0 ? -dividend : dividend;
         divisor = divisor > 0 ? -divisor : divisor;
 
@@ -27,6 +27,9 @@ class Solution {
         return positive ? res : -res;
     }
 
+    /**
+     * 不断让被除数增大2倍，相当于用循环加法来模拟除法
+     */
     private static int doDivide(int dividend, int divisor) { // 除数，被除数
         if (dividend > divisor) {
             return 0;
