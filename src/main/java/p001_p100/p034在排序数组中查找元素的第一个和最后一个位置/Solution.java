@@ -21,6 +21,11 @@ class Solution {
             }
         }
 
+        /**
+         * mid=(left+right)/2 中除法是取下界，所以只有在搜索到仅剩一个数的时候，left == right == mid，
+         * 此时无论进入if-else的哪一个分支，都会使得left > right，
+         * 而这最后一个数就是决定taget是否在数组中存在的最后希望，所以这里需要单独判断
+         */
         if (left > nums.length - 1 || nums[left] != target) {
             return -1;
         }
