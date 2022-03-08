@@ -16,6 +16,7 @@ class Solution {
             return;
         }
 
+        // 注意：此处一定要定义成局部变量
         Set<Integer> notDunplicated = new HashSet<>();
         for (int i = 0; i < nums.length; ++i) {
             if (used[i]) {

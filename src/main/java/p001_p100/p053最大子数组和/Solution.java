@@ -1,4 +1,4 @@
-package p001_p100.p053最大子序和;
+package p001_p100.p053最大子数组和;
 
 class Solution {
     public int maxSubArray(int[] nums) {

@@ -23,7 +23,7 @@ class Solution {
             }
 
             // 小剪枝：防止 candidate 重复元素带来的最终结果重复
-            //      input[i - 1] == input[i] 表明当前选出来的数等于当前层前一个分支选出来的数
+            //      candidates[i - 1] == candidates[i] 表明当前选出来的数等于当前层前一个分支选出来的数
             //      因为前一个分支的候选集合一定大于后一个分支的候选集合，故后面出现的分支中一定包含了前面分支出现的结果，因此剪枝防止重复
             if (i - 1 >= begin && candidates[i - 1] == candidates[i]) {
                 continue;

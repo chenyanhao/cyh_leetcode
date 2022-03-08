@@ -10,35 +10,33 @@ import java.util.LinkedList;
  */
 public class Solution2 {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int newStart = newInterval[0], newEnd = newInterval[1];
-        int idx = 0, n = intervals.length;
-        LinkedList<int[]> output = new LinkedList<>();
+        LinkedList<int[]> ans = new LinkedList<>();
 
-        while (idx < n && newStart > intervals[idx][0]) {
-            output.add(intervals[idx]);
+        // 将新区间左边且不相交的区间加入结果集
+        // 例如：intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]], newInterval = [4,8]
+        // 循环执行完，ans=[[1, 2]] idx=1
+        int idx = 0;
+        while (idx < intervals.length && intervals[idx][1] < newInterval[0]) {
+            ans.add(intervals[idx]);
             ++idx;
         }
 
-        if (output.isEmpty() || output.getLast()[1] < newStart) {
-            output.add(newInterval);
-        } else {
-            int[] interval = output.removeLast();
-            interval[1] = Math.max(newEnd, interval[1]);
-            output.add(interval);
+        // 判断当前区间是否与新区间重叠，重叠就进行合并
+        // 循环执行完，ans=[[1, 2], [3, 10]] idx=4
+        int left = newInterval[0], right = newInterval[1];
+        while (idx < intervals.length && intervals[idx][0] <= newInterval[1]) {
+            left = Math.min(left, intervals[idx][0]);
+            right = Math.max(right, intervals[idx][1]);
+            ++idx;
+        }
+        ans.add(new int[]{left, right});
+
+        // 将剩下的区间加入结果集
+        while (idx < intervals.length) {
+            ans.add(intervals[idx]);
+            ++idx;
         }
 
-        while (idx < n) {
-            int[] interval = intervals[idx++];
-            int start = interval[0], end = interval[1];
-            if (output.getLast()[1] < start) {
-                output.add(interval);
-            } else {
-                interval = output.removeLast();
-                interval[1] = Math.max(end, interval[1]);
-                output.add(interval);
-            }
-        }
-
-        return output.toArray(new int[output.size()][2]);
+        return ans.toArray(new int[ans.size()][2]);
     }
 }
