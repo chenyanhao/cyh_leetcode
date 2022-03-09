@@ -1,7 +1,7 @@
 package p001_p100.p064最小路径和;
 
 class Solution {
-    public static int minPathSum(int[][] grid) {
+    public int minPathSum(int[][] grid) {
         int row = grid.length;
         int col = grid[0].length;
         int[][] dp = new int[row][col];
@@ -19,13 +19,4 @@ class Solution {
         return dp[row - 1][col - 1];
     }
 
-    public static void main(String[] args) {
-        int[][] grid = {
-                {1, 3, 1},
-                {1, 5, 1},
-                {4, 2, 1}
-        };
-        int i = minPathSum(grid);
-        System.out.println(i);
-    }
 }
