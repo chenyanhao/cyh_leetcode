@@ -22,16 +22,19 @@ public class 三路快排 {
     // i 为当前的遍历元素，最终循环结束的时机为：i == gt
     public int[] partition(int[] arr, int l, int r) {
         int pivot = arr[l];
+
+        // arr[l+1..lt] < pivot，arr[gt..r] > pivot。初始化时保证这两个左闭右闭区间都为空
         int lt = l, gt = r + 1;
+
         int i = l + 1;
         while (i < gt) {
             if (arr[i] < pivot) {
-                swap(arr, i, lt + 1);
-                ++i;
                 ++lt;
+                swap(arr, i, lt);
+                ++i;
             } else if (arr[i] > pivot) {
-                swap(arr, i, gt - 1);
                 --gt;
+                swap(arr, i, gt);
             } else {
                 ++i;
             }

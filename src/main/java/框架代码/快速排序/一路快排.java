@@ -33,11 +33,11 @@ public class 一路快排 {
         int pivot = arr[l];
         int j = l;
 
-        //循环结束后：arr[l] = pivot; arr[l+1..j] < pivot; arr[j+1..r] > pivot
+        //循环结束后：arr[l] = pivot; arr[l+1..j] < pivot; arr[j+1..r] >= pivot
         for (int i = l + 1; i <= r; ++i) {
             if (arr[i] < pivot) {
-                swap(arr, j + 1, i);
                 ++j;
+                swap(arr, j, i);
             }
         }
 
