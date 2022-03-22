@@ -23,6 +23,7 @@ class Solution {
             return ans;
         }
 
+        // i 为二叉搜索树的根节点，其左子树为 [start, i-1]，右子树为 [i+1, end]。不断枚举 i，并递归调用左右子树即可。
         for (int i = start; i <= end; ++i) {
             List<TreeNode> leftTree = dfs(start, i - 1);
             List<TreeNode> rightTree = dfs(i + 1, end);

@@ -1,5 +1,8 @@
 package p101_200.p165比较版本号;
 
+/**
+ * 模仿状态机编程，编写一个辅助函数，每次返回两个值，一个是当前 trunk 值，另一个是下一次的索引位置
+ */
 class Solution {
 
     private class Pair<T, U> {

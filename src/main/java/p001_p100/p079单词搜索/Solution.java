@@ -34,7 +34,7 @@ class Solution {
     }
 
     /**
-     * 非标准回溯模板，第一次进入该函数时，(i,j)未加入路径
+     * 套用二维矩阵查找类问题的回溯模板，进入该函数时，路径path不含(i,j)
      */
     private void dfs(int i, int j, int start, LinkedList<int[]> path, List<LinkedList<int[]>> res) {
         if (start == ws.length - 1) {

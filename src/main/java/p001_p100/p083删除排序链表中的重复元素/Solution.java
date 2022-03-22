@@ -2,6 +2,7 @@ package p001_p100.p083删除排序链表中的重复元素;
 
 class Solution {
     public ListNode deleteDuplicates(ListNode head) {
+        // 可能会删除头结点，所以这里设置一个哑结点
         ListNode headfirst = new ListNode(-1);
         headfirst.next = head;
 

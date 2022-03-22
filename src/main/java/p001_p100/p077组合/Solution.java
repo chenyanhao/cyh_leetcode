@@ -23,6 +23,7 @@ class Solution {
     private static void dfs(int[] nums, int depth, boolean[] used, LinkedList<Integer> path, List<List<Integer>> res, int k) {
         if (depth == k) {
             res.add(new ArrayList<>(path));
+            return;
         }
 
         for (int i = 0; i < nums.length; ++i) {

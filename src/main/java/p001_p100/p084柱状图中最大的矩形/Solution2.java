@@ -5,16 +5,10 @@ import java.util.Stack;
 
 class Solution2 {
     /**
-     * 题目关键：对于位置 i，找到左右两侧和 i 相距最近，且高度小于 height[i] 的柱子
      *
-     * left[i]: i 左边比 heights[i] 小的最近的索引
-     * right[i]: i 右边比 heights[i] 大的最近的索引
-     * i 处的矩形面积 = (right[i] - left[i] - 1) * heights[i]
+     * 解法一通过从左向右遍历得到了 left 数组，通过从右向左遍历得到了 right 数组。
+     * 该解法通过一次遍历就得到 left 数组和 right 数组。
      *
-     * 接下来用单调栈来辅助构造 left[] 和 right[]
-     *
-     * @param heights
-     * @return
      */
     public int largestRectangleArea(int[] heights) {
 
@@ -25,6 +19,7 @@ class Solution2 {
 
         for (int i = 0; i < heights.length; ++i) {
             while (!stack.empty() && heights[stack.peek()] >= heights[i]) {
+                // 当元素出栈时，说明当前元素 i，是出栈元素向后找到的、第一个比其小的元素。因此此时可以更新 right 数组
                 right[stack.peek()] = i;
                 stack.pop();
             }

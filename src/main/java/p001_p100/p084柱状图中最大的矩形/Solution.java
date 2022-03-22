@@ -12,8 +12,6 @@ class Solution {
      *
      * 接下来用单调栈来辅助构造 left[] 和 right[]
      *
-     * @param heights
-     * @return
      */
     public int largestRectangleArea(int[] heights) {
 

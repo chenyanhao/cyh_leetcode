@@ -21,7 +21,6 @@ class Solution2 {
      * path: 进入函数时，path 包含 root 节点
      * sum: 进入函数时，sum 已包含 root 节点的 val
      *
-     * 此时为标准的回溯模板
      * 该例可以和 p079 对比，path 是否包含 root，会导致写法不同
      */
     private void dfs(List<List<Integer>> res, LinkedList<Integer> path, TreeNode root, Integer sum) {

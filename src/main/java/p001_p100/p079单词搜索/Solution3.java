@@ -38,10 +38,7 @@ class Solution3 {
     }
 
     /**
-     * 套用标准回溯模板
-     * @param i
-     * @param j
-     * @param depth
+     * 套用排列组合类问题的回溯模板
      */
     private boolean dfs(int i, int j, int depth) {
         if (depth == ws.length) {

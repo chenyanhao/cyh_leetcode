@@ -41,7 +41,7 @@ class Solution2 {
     }
 
     /**
-     * 套用标准回溯模板，第一次进入该函数时，(i,j)已加入路径；接下来站在 (i,j) 上，将其邻居作为选择列表
+     * 套用排列组合类问题的回溯模板，进入该函数时，路径path包含(i,j)；接下来站在 (i,j) 上，将其邻居作为选择列表
      */
     private void dfs(int i, int j, int depth, LinkedList<int[]> path, List<LinkedList<int[]>> res) {
         if (depth == ws.length) {

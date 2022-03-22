@@ -8,19 +8,26 @@ class Solution {
      *  2）每个 node 右子树的 next, 就是 node.next 的 左子树
      *
      * 这里递归实现，因为依赖于 node 左子树的 next，所以递归时需要先递归 node.left
+     *
+     * 时间复杂度：O(N)
+     * 空间复杂度：O(1)
      */
     public Node connect(Node root) {
-        dfs(root, null);
+        if (root == null) {
+            return null;
+        }
+
+        if (root.left != null) {
+            root.left.next = root.right;
+            connect(root.left);
+        }
+
+        if (root.right != null) {
+            root.right.next = root.next == null ? null : root.next.left;
+            connect(root.right);
+        }
+
         return root;
     }
 
-    private void dfs(Node node, Node next) {
-        if (node == null) {
-            return;
-        }
-
-        node.next = next;
-        dfs(node.left, node.right);
-        dfs(node.right, node.next == null ? null : node.next.left);
-    }
 }

@@ -24,10 +24,7 @@ class Solution3 {
             Node head = leftmost;
             while (head != null) {
                 head.left.next = head.right;
-
-                if (head.next != null) {
-                    head.right.next = head.next.left;
-                }
+                head.right.next = head.next == null ? null : head.next.left;
 
                 head = head.next;
             }

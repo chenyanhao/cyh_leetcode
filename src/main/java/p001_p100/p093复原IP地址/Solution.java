@@ -14,11 +14,7 @@ class Solution {
                 .collect(Collectors.toList());
     }
 
-    private void dfs(String s,
-                     int count,
-                     int start,
-                     ArrayDeque<String> path,
-                     List<List<String>> res) {
+    private void dfs(String s, int count, int start, ArrayDeque<String> path, List<List<String>> res) {
         if (count == 4) {
             if (start == s.length()) {
                 res.add(new ArrayList<String>(path));
