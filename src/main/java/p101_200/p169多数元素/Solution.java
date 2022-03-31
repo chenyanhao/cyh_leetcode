@@ -2,10 +2,6 @@ package p101_200.p169多数元素;
 
 /**
  * 采用摩尔投票法
- *  1) 候选人(cand_num)初始化为nums[0]，票数count初始化为1。
- *  2) 当遇到与cand_num相同的数，则票数count = count + 1，否则票数count = count - 1。
- *  3) 当票数count为0时，更换候选人，并将票数count重置为1。
- *  4) 遍历完数组后，cand_num即为最终答案。
  *
  * 为何这行得通呢？
  * 投票法是遇到相同的则票数 + 1，遇到不同的则票数 - 1。
@@ -19,15 +15,18 @@ package p101_200.p169多数元素;
  */
 class Solution {
     public int majorityElement(int[] nums) {
-        int cand_num = nums[0], count = 1;
-        for (int i = 1; i < nums.length; ++i) {
-            if (cand_num == nums[i]) {
+        int cand = 0, count = 0;
+        for (int n : nums) {
+            if (count > 0 && cand == n) { // 是当前候选者
                 ++count;
-            } else if (--count == 0) {
-                cand_num = nums[i];
+            } else if (count == 0) { // 还没有候选者，或者之前次数已经归零了
+                cand = n;
                 count = 1;
+            } else { // 不是当前候选者
+                --count;
             }
         }
-        return cand_num;
+
+        return cand;
     }
 }
