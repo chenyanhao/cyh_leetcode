@@ -56,7 +56,7 @@ class Solution {
     }
 
     /**
-     * 套用标准回溯模板，第一次进入该函数时，(i,j)已加入路径；接下来站在 (i,j) 上，将其邻居作为选择列表
+     * 套用二维矩阵查找类问题的回溯模板，进入该函数时，路径path不含(i,j)
      */
     private void dfs(int i, int j, int depth, LinkedList<int[]> path, List<LinkedList<int[]>> res) {
         if (depth == ws.length) {

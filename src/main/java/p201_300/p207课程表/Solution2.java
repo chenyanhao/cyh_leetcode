@@ -70,6 +70,9 @@ class Solution2 {
         return true;
     }
 
+    /**
+     * 节点 i 是否存在一种拓扑排序。存在返回true，不存在返回false。
+     */
     private boolean dfs(List<List<Integer>> adjacency, int[] flags, int i) {
         if (flags[i] == 1) {
             return false;
