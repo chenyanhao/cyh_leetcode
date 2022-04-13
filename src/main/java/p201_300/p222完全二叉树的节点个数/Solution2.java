@@ -35,7 +35,7 @@ class Solution2 {
         }
 
         // start-1 为最后一层节点数
-        return (1 << depthPrev) - 1 + (start - 1);
+        return (1 << depthPrev)-1 + (start-1);
     }
 
     /**
